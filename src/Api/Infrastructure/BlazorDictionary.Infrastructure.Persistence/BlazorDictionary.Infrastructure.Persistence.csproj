@@ -21,9 +21,4 @@
     <ProjectReference Include="..\..\Core\BlazorDictionary.Api.Domain\BlazorDictionary.Api.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="EntityConfigurations\Entry\" />
-    <Folder Include="EntityConfigurations\EntryComment\" />
-  </ItemGroup>
-
 </Project>
