@@ -8,6 +8,11 @@ namespace BlazorDictionary.Infrastructure.Persistence.Context
     {
         public const string? DEFAULT_SCHEMA = "dbo";
 
+        public BlazorDictionaryContext()
+        {
+            
+        }
+
         public BlazorDictionaryContext(DbContextOptions options) : base(options)
         {
         }
@@ -29,6 +34,18 @@ namespace BlazorDictionary.Infrastructure.Persistence.Context
         public DbSet<EmailConfirmation> EmailConfirmations { get; set; }
 
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                var connStr = "Data Source=APACHIE;Initial Catalog=BlazorDictionary;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+               optionsBuilder.UseSqlServer(connStr, opt =>
+               {
+                   opt.EnableRetryOnFailure(); //Veritabanina baglanirken bir hata alirsak diye
+               });
+
+            }
+        }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
