@@ -19,6 +19,10 @@ namespace BlazorDictionary.Infrastructure.Persistence.Extensions
                 });
             });
 
+            //Asagidaki kodu sadece ilk defa data olusturmada kullaniyor ve sonrasinda yorum satiri haline getiriyoruz.
+            //var seedData = new SeedData();
+            //seedData.SeedAsync(configuration).GetAwaiter().GetResult();
+
             return services;
         }
     }
