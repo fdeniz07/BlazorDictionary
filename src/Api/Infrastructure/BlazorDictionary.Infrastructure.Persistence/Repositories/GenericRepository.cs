@@ -16,8 +16,7 @@ namespace BlazorDictionary.Infrastructure.Persistence.Repositories
     public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : BaseEntity
     {
         private readonly DbContext _dbContext;
-        private readonly DbSet<TEntity> _dbSet;
-        //protected DbSet<TEntity> _dbSet => _dbContext.Set<TEntity>();
+        private readonly DbSet<TEntity> _dbSet; //protected DbSet<TEntity> _dbSet => _dbContext.Set<TEntity>();
 
 
         public GenericRepository(DbContext dbContext)
