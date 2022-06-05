@@ -1,15 +1,9 @@
 ﻿using BlazorDictionary.Api.Application.Interfaces.Repositories;
 using BlazorDictionary.Api.Domain.Models;
+using LinqKit;
+using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 using BlazorDictionary.Infrastructure.Persistence.Context;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using LinqKit;
 
 namespace BlazorDictionary.Infrastructure.Persistence.Repositories
 {
@@ -32,6 +26,8 @@ namespace BlazorDictionary.Infrastructure.Persistence.Repositories
         #region Notes
 
         //AsNoTracking metodu bizim icin gereksiz include islemlerini önler veya sadece bizim istedigimiz include ler varsa getirir. Bu sayede gereksiz yere ayni islemler,birbirini tekrar eden islemler (Entry -> EntryComment -> EntryVote -> EntryFavorite -> Entry) gerceklesmeyecegi icin epey bir performans saglamis olacagiz.
+
+        //Kullandigimiz metotlari virtual olarak isaretlenmesinin nedeni, istersek kullanacagimiz repository'ler icierisinde özellestirebiliriz demek icin.
 
         #endregion
 
@@ -253,7 +249,7 @@ namespace BlazorDictionary.Infrastructure.Persistence.Repositories
                 _dbContext.Entry(found).State = EntityState.Detached;
 
             foreach (Expression<Func<TEntity, object>> include in includes)
-                _dbContext.Entry(found).Reference(include).Load();
+                _dbContext.Entry(found).Reference(include).Load(); //Lazy loading olarak degeri geri dönüyoruz
 
             return found;
 
@@ -420,10 +416,10 @@ namespace BlazorDictionary.Infrastructure.Persistence.Repositories
 
         public virtual Task BulkDeleteById(IEnumerable<Guid> ids)
         {
-            if (ids != null && !ids.Any())
+            if (ids != null && !ids.Any()) //id'ler bossa ya da yoksa görevi tamamliyoruz
                 return Task.CompletedTask;
 
-            _dbContext.RemoveRange(_dbSet.Where(i => ids.Contains(i.Id)));
+            _dbContext.RemoveRange(_dbSet.Where(i => ids.Contains(i.Id))); //basgli olan tüm tablolari siliyoruz
             return _dbContext.SaveChangesAsync();
         }
 
@@ -450,9 +446,12 @@ namespace BlazorDictionary.Infrastructure.Persistence.Repositories
             if (entities != null && !entities.Any())
                 return Task.CompletedTask;
 
+
+            // _dbSet.UpdateRange(entities); foreach yerine kisaca böylede yapabiliriz
             foreach (var entityItem in entities)
             {
                 _dbSet.Update(entityItem);
+               
             }
 
             return _dbContext.SaveChangesAsync();

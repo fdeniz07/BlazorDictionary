@@ -1,4 +1,4 @@
-﻿using BlazorDictionary.Common.ViewModels;
+﻿using BlazorDictionary.Common.Models;
 
 namespace BlazorDictionary.Api.Domain.Models
 {

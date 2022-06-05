@@ -1,4 +1,4 @@
-﻿namespace BlazorDictionary.Common.ViewModels
+﻿namespace BlazorDictionary.Common.Models
 {
     public enum VoteType
     {
