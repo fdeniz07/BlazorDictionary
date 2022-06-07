@@ -1,7 +1,7 @@
 ﻿using BlazorDictionary.Common.Models.RequestModels;
 using FluentValidation;
 
-namespace BlazorDictionary.Api.Application.Features.Commands.User
+namespace BlazorDictionary.Api.Application.Features.Commands.User.Login
 {
     public class LoginUserCommandValidator:AbstractValidator<LoginUserCommand>
     {
