@@ -12,17 +12,17 @@
 
         public int Skip => (CurrentPage - 1) * PageSize;
 
-        public Page()
+        public Page():this(0)
         {
             
         }
 
-        public Page(int totalRowCount)
+        public Page(int totalRowCount):this(1,10,totalRowCount)
         {
             
         }
 
-        public Page(int pageSize, int totalRowCount)
+        public Page(int pageSize, int totalRowCount):this(1,pageSize,totalRowCount)
         {
             
         }
@@ -31,6 +31,13 @@
         {
             if (currentPage < 1)
                 throw new ArgumentException("Invalid page number!");
+
+            if (pageSize < 1)
+                throw new ArgumentException("Invalid page size!");
+
+            TotalRowCount  = totalRowCount;
+            CurrentPage = currentPage;
+            PageSize = pageSize;
         }
         
     }

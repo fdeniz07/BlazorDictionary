@@ -2,7 +2,7 @@
 
 namespace BlazorDictionary.Api.Domain.Models
 {
-    public class EntryVote:BaseEntity
+    public class EntryVote : BaseEntity
     {
         public Guid EntryId { get; set; }
 
