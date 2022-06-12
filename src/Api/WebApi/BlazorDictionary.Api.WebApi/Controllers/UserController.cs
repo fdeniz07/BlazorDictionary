@@ -1,4 +1,6 @@
-﻿using BlazorDictionary.Common.Models.RequestModels;
+﻿using BlazorDictionary.Api.Application.Features.Commands.User.ConfirmEmail;
+using BlazorDictionary.Common.Events.User;
+using BlazorDictionary.Common.Models.RequestModels;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,7 +8,7 @@ namespace BlazorDictionary.Api.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class UserController : BaseController
     {
         private readonly IMediator _mediator;
 
@@ -15,6 +17,7 @@ namespace BlazorDictionary.Api.WebApi.Controllers
         {
             _mediator = mediator;
         }
+
 
         [HttpPost]
         [Route("Login")]
@@ -25,6 +28,7 @@ namespace BlazorDictionary.Api.WebApi.Controllers
             return Ok(res);
         }
 
+
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateUserCommand command)
         {
@@ -32,6 +36,7 @@ namespace BlazorDictionary.Api.WebApi.Controllers
 
             return Ok(guid);
         }
+
 
         [HttpPost]
         [Route("Update")]
@@ -43,5 +48,29 @@ namespace BlazorDictionary.Api.WebApi.Controllers
         }
 
 
+        [HttpPost]
+        [Route("Confirm")]
+        public async Task<IActionResult> ConfirmEmail(Guid id)
+        {
+            var guid = await _mediator.Send(new ConfirmEmailCommand()
+            {
+                ConfirmationId = id
+            });
+
+            return Ok(guid);
+        }
+
+
+        [HttpPost]
+        [Route("ChangePassword")]
+        public async Task<IActionResult> ChangePassword([FromBody] ChangeUserPasswordCommand command)
+        {
+            if (!command.UserId.HasValue)
+                command.UserId = UserId;
+
+            var guid = await _mediator.Send(command);
+
+            return Ok(guid);
+        }
     }
 }
