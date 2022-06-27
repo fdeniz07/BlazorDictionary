@@ -23,4 +23,10 @@
     <ProjectReference Include="..\BlazorDictionary.Api.Domain\BlazorDictionary.Api.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\Queries\GetUserDetail\" />
+    <Folder Include="Features\Queries\GetUserEntries\" />
+    <Folder Include="Features\Queries\SearchBySubject\" />
+  </ItemGroup>
+
 </Project>

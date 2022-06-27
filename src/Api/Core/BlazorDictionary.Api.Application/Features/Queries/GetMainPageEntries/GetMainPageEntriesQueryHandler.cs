@@ -6,7 +6,7 @@ using BlazorDictionary.Common.Models.Queries;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace BlazorDictionary.Api.Application.Features.Queries.GetMailPageEntries;
+namespace BlazorDictionary.Api.Application.Features.Queries.GetMainPageEntries;
 
 public class
     GetMainPageEntriesQueryHandler : IRequestHandler<GetMainPageEntriesQuery,
@@ -21,7 +21,7 @@ public class
 
     }
 
-    public async  Task<PagedViewModel<GetEntryDetailViewModel>> Handle(GetMainPageEntriesQuery request, CancellationToken cancellationToken)
+    public async Task<PagedViewModel<GetEntryDetailViewModel>> Handle(GetMainPageEntriesQuery request, CancellationToken cancellationToken)
     {
         var query = _entryRepository.AsQueryable();
 
@@ -34,11 +34,11 @@ public class
             Id = i.Id,
             Subject = i.Subject,
             Content = i.Content,
-            IsFavorited = request.UserId.HasValue && i.EntryFavorites.Any(j=>j.CreatedById==request.UserId),
+            IsFavorited = request.UserId.HasValue && i.EntryFavorites.Any(j => j.CreatedById == request.UserId),
             FavoritedCount = i.EntryFavorites.Count,
             CreatedDate = i.CreatedDate,
             CreatedByUserName = i.CreatedBy.UserName,
-            VoteType = request.UserId.HasValue && i.EntryVotes.Any(j => j.CreatedById == request.UserId) ? i.EntryVotes.FirstOrDefault(j=>j.CreatedById ==request.UserId).VoteType: VoteType.None
+            VoteType = request.UserId.HasValue && i.EntryVotes.Any(j => j.CreatedById == request.UserId) ? i.EntryVotes.FirstOrDefault(j => j.CreatedById == request.UserId).VoteType : VoteType.None
         });
 
         var entries = await list.GetPaged(request.Page, request.PageSize);

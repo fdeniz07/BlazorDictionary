@@ -1,5 +1,5 @@
 ﻿using BlazorDictionary.Api.Application.Features.Queries.GetEntries;
-using BlazorDictionary.Api.Application.Features.Queries.GetMailPageEntries;
+using BlazorDictionary.Api.Application.Features.Queries.GetMainPageEntries;
 using BlazorDictionary.Common.Models.RequestModels;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

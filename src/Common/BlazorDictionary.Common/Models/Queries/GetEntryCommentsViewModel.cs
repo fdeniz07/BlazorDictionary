@@ -1,10 +1,8 @@
 ﻿namespace BlazorDictionary.Common.Models.Queries
 {
-    public class GetEntryDetailViewModel : BaseFooterRateFavoritedViewModel
+    public class GetEntryCommentsViewModel : BaseFooterRateFavoritedViewModel
     {
         public Guid Id { get; set; }
-
-        public string Subject { get; set; }
 
         public string Content { get; set; }
 
