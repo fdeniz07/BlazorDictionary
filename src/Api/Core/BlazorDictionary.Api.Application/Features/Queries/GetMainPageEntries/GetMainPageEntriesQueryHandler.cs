@@ -26,8 +26,8 @@ public class
         var query = _entryRepository.AsQueryable();
 
         query = query.Include(i => i.EntryFavorites)
-            .Include(i => i.CreatedBy)
-            .Include(i => i.EntryVotes);
+                     .Include(i => i.CreatedBy)
+                     .Include(i => i.EntryVotes);
 
         var list = query.Select(i => new GetEntryDetailViewModel()
         {
@@ -43,6 +43,6 @@ public class
 
         var entries = await list.GetPaged(request.Page, request.PageSize);
 
-        return new PagedViewModel<GetEntryDetailViewModel>(entries.Results, entries.PageInfo);
+        return entries;
     }
 }
