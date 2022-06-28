@@ -12,19 +12,24 @@ namespace BlazorDictionary.Api.WebApi.Infrastructure.Extensions
             bool useDefaultHandlingResponse = true,
             Func<HttpContext, Exception, Task> handleException = null)
         {
-            app.Run(context =>
+
+            app.UseExceptionHandler(options =>
             {
-                var exceptionObject = context.Features.Get<IExceptionHandlerFeature>();
+                options.Run(context =>
+                {
+                    var exceptionObject = context.Features.Get<IExceptionHandlerFeature>();
 
-                if (!useDefaultHandlingResponse && handleException == null)
-                    throw new ArgumentNullException(nameof(handleException),
-                        $"{nameof(handleException)} cannot be null when {nameof(useDefaultHandlingResponse)} is false");
+                    if (!useDefaultHandlingResponse && handleException == null)
+                        throw new ArgumentNullException(nameof(handleException),
+                            $"{nameof(handleException)} cannot be null when {nameof(useDefaultHandlingResponse)} is false");
 
-                if (!useDefaultHandlingResponse && handleException != null)
-                    return handleException(context, exceptionObject.Error);
+                    if (!useDefaultHandlingResponse && handleException != null)
+                        return handleException(context, exceptionObject.Error);
 
-                return DefaultHandleException(context, exceptionObject.Error, includeExceptionDetails);
+                    return DefaultHandleException(context, exceptionObject.Error, includeExceptionDetails);
+                });
             });
+
 
             return app;
         }
@@ -39,6 +44,7 @@ namespace BlazorDictionary.Api.WebApi.Infrastructure.Extensions
 
             if (exception is DatabaseValidationException)
             {
+                statusCode = HttpStatusCode.BadRequest;
                 var validationResponse = new ValidationResponseModel(exception.Message);
                 await WriteResponse(context, statusCode, validationResponse);
                 return;
