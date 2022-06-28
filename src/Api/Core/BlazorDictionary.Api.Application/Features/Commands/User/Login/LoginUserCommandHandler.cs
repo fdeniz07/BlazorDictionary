@@ -33,15 +33,15 @@ namespace BlazorDictionary.Api.Application.Features.Commands.User.Login
             var dbUser = await _userRepository.GetSingleAsync(i => i.EmailAddress == request.EmailAddress);
 
             if (dbUser == null)
-                throw new DatabaseValidationsException("User not found!");
+                throw new DatabaseValidationException("User not found!");
 
 
             var pass = PasswordEncryptor.Encrypt(request.Password); // Disaridan gelen sifreyi, kriptoluyoruz
             if (dbUser.Password != pass)
-                throw new DatabaseValidationsException("Password is wrong!"); //Kriptoladigimiz sifre ile Db'deki kriptolu sifreyi karsilastiriyoruz
+                throw new DatabaseValidationException("Password is wrong!"); //Kriptoladigimiz sifre ile Db'deki kriptolu sifreyi karsilastiriyoruz
 
             if (!dbUser.EmailConfirmed)
-                throw new DatabaseValidationsException("Email address isn't confirmed yet!");
+                throw new DatabaseValidationException("Email address isn't confirmed yet!");
 
             var result = _mapper.Map<LoginUserViewModel>(dbUser);
 

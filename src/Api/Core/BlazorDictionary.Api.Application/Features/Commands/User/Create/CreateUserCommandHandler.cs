@@ -25,7 +25,7 @@ namespace BlazorDictionary.Api.Application.Features.Commands.User.Create
             var existUser = await _userRepository.GetSingleAsync(i => i.EmailAddress == request.EmailAddress);
 
             if (existUser != null)
-                throw new DatabaseValidationsException("User already exists!");
+                throw new DatabaseValidationException("User already exists!");
 
             var dbUser = _mapper.Map<Domain.Models.User>(request);
 

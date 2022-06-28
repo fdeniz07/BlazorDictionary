@@ -21,8 +21,7 @@ namespace BlazorDictionary.Api.WebApi.Controllers
 
 
 
-        [HttpGet]
-        [Route("{id}")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id)
         {
             var user = await _mediator.Send(new GetUserDetailQuery(id));

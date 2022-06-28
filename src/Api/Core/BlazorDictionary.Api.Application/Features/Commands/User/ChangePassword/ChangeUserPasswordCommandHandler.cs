@@ -25,12 +25,12 @@ namespace BlazorDictionary.Api.Application.Features.Commands.User.ChangePassword
 
 
             if (dbUser is null)
-                throw new DatabaseValidationsException("User not found");
+                throw new DatabaseValidationException("User not found");
 
 
             var encryptedPassword = PasswordEncryptor.Encrypt(request.OldPassword);
             if (dbUser.Password != encryptedPassword)
-                throw new DatabaseValidationsException("Old password wrong!");
+                throw new DatabaseValidationException("Old password wrong!");
 
 
             dbUser.Password = PasswordEncryptor.Encrypt(request.NewPassword);

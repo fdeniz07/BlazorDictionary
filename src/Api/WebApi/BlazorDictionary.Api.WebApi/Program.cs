@@ -1,4 +1,5 @@
 using BlazorDictionary.Api.Application.Extensions;
+using BlazorDictionary.Api.WebApi.Infrastructure.Extensions;
 using BlazorDictionary.Infrastructure.Persistence.Extensions;
 using FluentValidation.AspNetCore;
 
@@ -17,7 +18,7 @@ builder.Services
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
+builder.Services.ConfigureAuth(builder.Configuration);
 
 builder.Services.AddApplicationRegistiration();
 builder.Services.AddInfrastructureRegistration(builder.Configuration);
@@ -32,6 +33,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.ConfigureExceptionHandling(app.Environment.IsDevelopment());
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

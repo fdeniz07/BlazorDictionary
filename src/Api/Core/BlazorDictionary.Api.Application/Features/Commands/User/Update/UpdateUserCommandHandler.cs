@@ -25,7 +25,7 @@ namespace BlazorDictionary.Api.Application.Features.Commands.User.Update
             var dbUser = await _userRepository.GetByIdAsync(request.Id);
             
             if (dbUser == null)
-                throw new DatabaseValidationsException("User not found");
+                throw new DatabaseValidationException("User not found");
 
             var dbEmailAddress = dbUser.EmailAddress;
             var emailChanged = string.CompareOrdinal(dbEmailAddress, request.EmailAddress) == 0;

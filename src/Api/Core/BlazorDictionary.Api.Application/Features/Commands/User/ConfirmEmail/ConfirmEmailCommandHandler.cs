@@ -22,15 +22,15 @@ namespace BlazorDictionary.Api.Application.Features.Commands.User.ConfirmEmail
             var confirmation = await _emailConfirmationRepository.GetByIdAsync(request.ConfirmationId);
 
             if (confirmation is null)
-                throw new DatabaseValidationsException("Confirmation not found!");
+                throw new DatabaseValidationException("Confirmation not found!");
 
             var dbUser = await _userRepository.GetSingleAsync(i => i.EmailAddress == confirmation.NewEmailAddress);
 
             if (dbUser is null)
-                throw new DatabaseValidationsException("User not found with this email!");
+                throw new DatabaseValidationException("User not found with this email!");
 
             if (dbUser.EmailConfirmed)
-                throw new DatabaseValidationsException("Email address is already confirmed!");
+                throw new DatabaseValidationException("Email address is already confirmed!");
 
             dbUser.EmailConfirmed = true;
             await _userRepository.UpdateAsync(dbUser);
