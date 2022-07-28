@@ -44,8 +44,8 @@
         }
 
     </div>
-    //TODO Enable this after auth is enabled
-@*    <AuthorizeView>
+@*    //TODO Enable this after auth is enabled*@
+    <AuthorizeView>
         <Authorized>
             <div class="top-nav">
                 <input type="button" class="form-control btn-success btn-sozluk w-auto" value="Create Entry" @onclick="@NavigateCreateEntryPage" />
@@ -53,15 +53,15 @@
                 <input type="button" class="form-control btn-success btn-sozluk w-auto" value="Logout" @onclick="@NavigateLogoutPage" />
             </div>
 
-        </Authorized>*@
+        </Authorized>
 
-@*        <NotAuthorized>*@
+       <NotAuthorized>
             <div class="top-nav">
                 <input type="button" class="form-control btn-success btn-sozluk w-auto" value="Login" @onclick="@NavigateLoginPage" />
             </div>
-@*        </NotAuthorized>
+       </NotAuthorized>
 
-    </AuthorizeView>*@
+    </AuthorizeView>
 
     <div class="sub-nav">
         <a class="sub-nav-item active">bugün</a>

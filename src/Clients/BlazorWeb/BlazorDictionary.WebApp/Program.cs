@@ -1,7 +1,9 @@
 using BlazorDictionary.WebApp;
+using BlazorDictionary.WebApp.Infrastructure.Auth;
 using BlazorDictionary.WebApp.Infrastructure.Services;
 using BlazorDictionary.WebApp.Infrastructure.Services.Interfaces;
 using Blazored.LocalStorage;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
@@ -32,7 +34,10 @@ builder.Services.AddTransient<IFavService, FavService>();
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IIdentityService, IdentityService>();
 
+builder.Services.AddScoped<AuthenticationStateProvider, AuthStateProvider>();
 
 builder.Services.AddBlazoredLocalStorage();
+
+builder.Services.AddAuthorizationCore();
 
 await builder.Build().RunAsync();
