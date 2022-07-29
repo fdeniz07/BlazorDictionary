@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 using System.Net.Http.Json;
 using System.Text.Json;
 using BlazorDictionary.WebApp.Infrastructure.Extensions;
+using BlazorDictionary.WebApp.Infrastructure.Auth;
 
 namespace BlazorDictionary.WebApp.Infrastructure.Services
 {
@@ -78,8 +79,8 @@ namespace BlazorDictionary.WebApp.Infrastructure.Services
                 syncLocalStorageService.SetUsername(response.UserName);
                 syncLocalStorageService.SetUserId(response.Id);
 
-                //TODO Check after auth
-                //((AuthStateProvider)authenticationStateProvider).NotifyUserLogin(response.UserName, response.Id);
+
+                ((AuthStateProvider)authenticationStateProvider).NotifyUserLogin(response.UserName, response.Id);
 
                 httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("bearer", response.UserName);
 
@@ -95,8 +96,8 @@ namespace BlazorDictionary.WebApp.Infrastructure.Services
             syncLocalStorageService.RemoveItem(LocalStorageExtension.UserName);
             syncLocalStorageService.RemoveItem(LocalStorageExtension.UserId);
 
-            //TODO Check after auth
-            //((AuthStateProvider)authenticationStateProvider).NotifyUserLogout();
+
+            ((AuthStateProvider)authenticationStateProvider).NotifyUserLogout();
             httpClient.DefaultRequestHeaders.Authorization = null;
         }
     }
