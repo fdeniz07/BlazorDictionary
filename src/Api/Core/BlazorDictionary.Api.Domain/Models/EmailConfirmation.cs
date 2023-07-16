@@ -1,6 +1,6 @@
 ﻿namespace BlazorDictionary.Api.Domain.Models
 {
-    public class EmailConfirmation:BaseEntity
+    public class EmailConfirmation : BaseEntity
     {
         public string OldEmailAddress { get; set; }
 

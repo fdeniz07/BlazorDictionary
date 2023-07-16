@@ -1,12 +1,12 @@
 ﻿namespace BlazorDictionary.Api.Domain.Models
 {
-    public class EntryCommentFavorite:BaseEntity
+    public class EntryFavorite : BaseEntity
     {
-        public Guid EntryCommentId { get; set; }
+        public Guid EntryId { get; set; }
 
         public Guid CreatedById { get; set; }
 
-        public virtual EntryComment EntryComment { get; set; }
+        public virtual Entry Entry { get; set; }
 
         public virtual User CreatedUser { get; set; }
     }

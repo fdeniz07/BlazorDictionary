@@ -32,6 +32,7 @@ namespace BlazorDictionary.Infrastructure.Persistence.Context
             var context = new BlazorDictionaryContext(dbContextBuilder.Options);
 
             //Eger Db de veri varsa Dataseeding kismina gecmeden görevi tamamla diyebiliriz
+            //User tablosunda kayit varsa, asagiya devam etme
             if (context.Users.Any())
             {
                 await Task.CompletedTask;

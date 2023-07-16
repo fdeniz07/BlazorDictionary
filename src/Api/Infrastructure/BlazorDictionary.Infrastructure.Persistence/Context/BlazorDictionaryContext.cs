@@ -20,9 +20,7 @@ namespace BlazorDictionary.Infrastructure.Persistence.Context
         public DbSet<User> Users { get; set; }
 
         public DbSet<Entry> Entries { get; set; }
-
         public DbSet<EntryVote> EntryVotes { get; set; }
-
         public DbSet<EntryFavorite> EntryFavorites { get; set; }
 
         public DbSet<EntryComment> EntryComments { get; set; }
@@ -84,6 +82,7 @@ namespace BlazorDictionary.Infrastructure.Persistence.Context
         }
 
 
+        //CreateDate alanlarinin yeni bir entity olusturulurken eklenmesini istiyoruz.
         private void OnBeforeSave()
         {
             var addedEntities = ChangeTracker.Entries()
